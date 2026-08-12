@@ -12,11 +12,20 @@ public class Inventory : IReadOnlyInventory
         {
             inventoryArray[i] = new InventorySlot [width];
         }
+
+        for(int i =0; i < height; i++)
+        {
+            for(int k =0; k< width; k++)
+            {
+                inventoryArray[i][k] = new InventorySlot();
+            }
+        }
     }
     public void TryAddItemAt(ItemContainer itemContainer, Vector2Int position)
     {
         if (!HasItem(position))//found no item, can place
         {
+            Debug.Log("found no item");
             var slot = inventoryArray[position.y][position.x];
             slot.AddItem(itemContainer);
             return;
@@ -39,8 +48,8 @@ public class Inventory : IReadOnlyInventory
 
     private bool HasItem(Vector2Int position)
     {
-        var slot = inventoryArray[position.y][position.x];
-        if(slot.ItemContainer.Item == null) return false;
+        InventorySlot slot = inventoryArray[position.y][position.x];
+        if(slot.IsEmpty) return false;
         return true;
     }
 

@@ -6,9 +6,20 @@ public class ShopGuy : MonoBehaviour
     private Inventory inventory;
     private Transaction transaction;
 
-    public void Init()
+    public CurrencyKeeper CurrencyKeeper => currencyKeeper;
+    public Inventory Inventory => inventory;
+
+
+    void Start()
+    {
+        
+    }
+    public void Init(CurrencyKeeper keeper, Inventory inventory)
     {
         //use to initialize class
+        currencyKeeper = keeper;
+        this.inventory = inventory;
+        transaction = new Transaction();
         //will be used for UI
         //use to subscribe to click events 
         //event += ItemClickEvent();
@@ -27,9 +38,10 @@ public class ShopGuy : MonoBehaviour
             currencyKeeper.Deposit(payment);
             inventory.TryRemoveItemAt(position);
             //add item to buyer
+            UnityEngine.Debug.Log("bought item");
 
         }
-        //continue as needed
+        //item was not bought
 
     }
 

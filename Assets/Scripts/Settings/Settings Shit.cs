@@ -1,13 +1,13 @@
 using UnityEngine;
 public class SettingsShit : MonoBehaviour
 {
-    [SerializeField] private int TargetFrameRate = 60;
     [Tooltip("Vsync overrides Target Frame Rate")]
     [SerializeField] private bool VSyncON = false;
+    [SerializeField] private int TargetFrameRate = 60;
+    
 
     void Awake()
     {
-        Application.targetFrameRate = TargetFrameRate;
         if (VSyncON)
         {
             QualitySettings.vSyncCount = 1;
@@ -16,6 +16,9 @@ public class SettingsShit : MonoBehaviour
         {
             QualitySettings.vSyncCount = 0;
         }
+
+        Application.targetFrameRate = TargetFrameRate;
+        
 
     }
 }

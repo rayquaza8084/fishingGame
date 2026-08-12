@@ -1,3 +1,5 @@
+using System.Transactions;
+
 public struct TransactionGoodsProvider
 {
     public Inventory inventory; 
