@@ -10,6 +10,7 @@ public class DaSoundTest : MonoBehaviour
     void Start()
     {
         _audioSource.clip = _audioClip;
+        _audioSource.Play();
     }
 
     // Update is called once per frame
