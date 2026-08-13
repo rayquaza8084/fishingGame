@@ -67,6 +67,5 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "fishingGame.slnx",
-    "dotnet.preferCSharpExtension": true
+    "dotnet.defaultSolution": "fishingGame.slnx"
 }

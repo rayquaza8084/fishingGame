@@ -3,6 +3,11 @@ using UnityEngine.InputSystem;
 
 public class PlayerMovementController : MonoBehaviour
 {
+    [Header("Sensitivity")]
+    [SerializeField] private float sensitivity = 0.1f;
+    [SerializeField] private Transform cameraHolderTransform;
+    private float pitch =0;
+    private float yaw =0;
     [Header("Movement")]
     [SerializeField] private float horizontalMoveSpeed;
     [SerializeField] private float groundDrag;
@@ -43,6 +48,21 @@ public class PlayerMovementController : MonoBehaviour
         Vector3 movement = new Vector3(horizontalVelocity.x, verticalVelocity, horizontalVelocity.y);
         charController.Move(movement*Time.fixedDeltaTime);
     }
+
+    public void UpdateLook(InputAction.CallbackContext context){
+        var mouseDelta = context.ReadValue<Vector2>();
+
+        //everything in degrees
+        yaw += mouseDelta.x * sensitivity;
+        float pitchDelta = mouseDelta.y * sensitivity;
+
+        // Vertical
+        pitch -= pitchDelta;
+        pitch = Mathf.Clamp(pitch, -90f, 90f);
+
+        cameraHolderTransform.localRotation = Quaternion.Euler(pitch, yaw, 0f);
+
+    }
     
     public void Jump(){
         if (isGrounded)
@@ -53,7 +73,7 @@ public class PlayerMovementController : MonoBehaviour
     }
     // private void resetJump(){
     //     isReadytoJump = true;
-    public void ChangeHorizontalMovement(InputAction.CallbackContext context)
+    public void UpdateHorizontalMovement(InputAction.CallbackContext context)
     {
         horizontalVelocity = context.ReadValue<Vector2>() * horizontalMoveSpeed;
     }
