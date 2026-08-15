@@ -8,4 +8,8 @@ public class ItemContainer : IReadOnlyItem
         Item = item;
         TempPriceSolution =  tempPrice;
     }
+    public ItemContainer()
+    {
+        
+    }
 }

@@ -1,23 +1,17 @@
 using UnityEngine;
 
-public class ShopGuy : MonoBehaviour
+public class Shop 
 {
-    private CurrencyKeeper currencyKeeper;
+    private NetworkCurrencyKeeper networkCurrencyKeeper;
     private Inventory inventory;
     private Transaction transaction;
 
-    public CurrencyKeeper CurrencyKeeper => currencyKeeper;
     public Inventory Inventory => inventory;
 
-
-    void Start()
-    {
-        
-    }
-    public void Init(CurrencyKeeper keeper, Inventory inventory)
+    public Shop(NetworkCurrencyKeeper keeper, Inventory inventory)
     {
         //use to initialize class
-        currencyKeeper = keeper;
+        networkCurrencyKeeper = keeper;
         this.inventory = inventory;
         transaction = new Transaction();
         //will be used for UI
@@ -25,17 +19,17 @@ public class ShopGuy : MonoBehaviour
         //event += ItemClickEvent();
     }
 
-    public void ItemClickEvent(TransactionGoodsProvider buyer, Vector2Int position)//start a transaction
+    public void BuyItem(TransactionGoodsProvider buyer, Vector2Int position)//start a transaction
     {
         //find item at location
         inventory.ViewItemAt(position);
         //pass item price to transacition class
-        var transactionProvier = new TransactionGoodsProvider(inventory, currencyKeeper);
+        var transactionProvier = new TransactionGoodsProvider(inventory, networkCurrencyKeeper);
         var payment = transaction.BuyItem(buyer,transactionProvier,0);
         //check returned money
         if(payment == 0)
         {
-            currencyKeeper.Deposit(payment);
+            networkCurrencyKeeper.ServerDeposit(payment);
             inventory.TryRemoveItemAt(position);
             //add item to buyer
             UnityEngine.Debug.Log("bought item");

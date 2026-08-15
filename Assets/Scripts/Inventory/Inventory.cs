@@ -25,7 +25,7 @@ public class Inventory : IReadOnlyInventory
     {
         if (!HasItem(position))//found no item, can place
         {
-            Debug.Log("found no item");
+            Debug.Log($"found no item at location placing at: {position}");
             var slot = inventoryArray[position.y][position.x];
             slot.AddItem(itemContainer);
             return;
